@@ -31,6 +31,7 @@ import java.util.List;
 @ConfigurationProperties(GlobalResponseProperties.PREFIX)
 public class GlobalResponseProperties {
 
+
     /**
      * 定义过滤拦截头部
      */
