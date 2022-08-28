@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\com.calf.cloud.starter.response.config.GlobalResponseAutoConfig
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\com.fengzijk.response.config.GlobalResponseAutoConfig

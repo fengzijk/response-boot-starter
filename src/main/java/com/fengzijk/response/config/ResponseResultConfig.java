@@ -18,7 +18,7 @@
 package com.fengzijk.response.config;
 
 import com.fengzijk.response.properties.GlobalResponseProperties;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -41,7 +41,7 @@ import java.util.List;
  * @date 2022/8/28 1:25
  */
 @Configuration
-@ConditionalOnProperty(value = GlobalResponseProperties.PREFIX + ".enabled", havingValue = "true", matchIfMissing = true)
+@EnableConfigurationProperties(GlobalResponseProperties.class)
 public class ResponseResultConfig extends DelegatingWebMvcConfiguration {
     @Override
     protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
