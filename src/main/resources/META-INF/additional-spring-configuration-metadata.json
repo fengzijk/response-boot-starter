@@ -1,6 +1,12 @@
 {
   "properties": [
     {
+      "name":"global-response.enabled",
+      "type":"java.lang.Boolean",
+      "description": "开关."
+    },
+
+    {
       "name": "global-response.adviceFilterPackage",
       "type": "java.util.List<java.lang.String>",
       "description": "统一返回过滤包集合."
