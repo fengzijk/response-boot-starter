@@ -17,7 +17,7 @@
 
 package com.fengzijk.response;
 
-import lombok.Getter;
+
 
 /**
  * <pre>返回值</pre>
@@ -25,7 +25,7 @@ import lombok.Getter;
  * @author guozhifeng
  * @since 2022/8/28
  */
-@Getter
+
 public enum ResponseStatusEnum {
 
     /**
@@ -44,6 +44,21 @@ public enum ResponseStatusEnum {
     NO_HANDLER(404, "资源不存在");
 
 
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 
     private Integer code;
     private String msg;

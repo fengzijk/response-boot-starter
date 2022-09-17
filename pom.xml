@@ -10,8 +10,8 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.fengzijk</groupId>
   <artifactId>response-boot-starter</artifactId>
-  <version>1.0.6</version>
-  <name>sign</name>
+  <version>1.0.7</version>
+  <name>response-boot-starter</name>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -52,12 +52,6 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <optional>true</optional>
     </dependency>
 
 

@@ -29,7 +29,33 @@ global-response:
     com.fengzijk.springstudy
 ~~~
 
-### 3.返回结果包装示例
+
+### 3. 由于String的converters问题 需要加入以下配置
+
+~~~java
+   @Configuration
+   public class WebMvcConfiguration implements WebMvcConfigurer {
+   
+       /**
+        * 交换MappingJackson2HttpMessageConverter与第一位元素 让返回值类型为String的接口能正常返回包装结果
+        *
+        * @param converters initially an empty list of converters
+        */
+       @Override
+       public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+           for (int i = 0; i < converters.size(); i++) {
+               if (converters.get(i) instanceof MappingJackson2HttpMessageConverter) {
+                   MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = (MappingJackson2HttpMessageConverter) converters.get(i);
+                   converters.set(i, converters.get(0));
+                   converters.set(0, mappingJackson2HttpMessageConverter);
+                   break;
+               }
+           }
+       }
+   }
+~~~
+
+### 4.返回结果包装示例
 
 ~~~json
 {
@@ -41,7 +67,7 @@ global-response:
 }
 ~~~
 
-### 4. 异常信息处理
+### 5. 异常信息处理
 ~~~json
 
 {

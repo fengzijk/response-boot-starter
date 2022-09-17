@@ -17,21 +17,22 @@
 
 package com.fengzijk.response;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
+
+
+
 
 import java.io.Serializable;
 
 /**
  * <pre>统一返回结果</pre>
  *
- * @author  fengzijk
+ * @author fengzijk
  * @date : 2021/10/4 1:01
  */
 
-@Data
-@Accessors(chain = true)
+
 public class ResponseResult<T> implements Serializable {
+
 
     private int code;
     private String msg;
@@ -48,10 +49,12 @@ public class ResponseResult<T> implements Serializable {
      * @date : 2021/10/4 2:08
      */
     public static <T> ResponseResult<T> success(T data) {
-        return new ResponseResult<T>()
-                .setCode(ResponseStatusEnum.OK.getCode())
-                .setMsg(ResponseStatusEnum.OK.getMsg())
-                .setData(data);
+        ResponseResult<T> result = new ResponseResult<>();
+        result.setCode(ResponseStatusEnum.OK.getCode());
+        result.setMsg(ResponseStatusEnum.OK.getMsg());
+        result.setData(data);
+        result.setSuccess(result.code==200);
+        return result;
     }
 
     /**
@@ -63,10 +66,12 @@ public class ResponseResult<T> implements Serializable {
      * @date : 2021/10/4 2:11
      */
     public static <T> ResponseResult<T> fail(T data, ResponseStatusEnum responseStatusEnum) {
-        return new ResponseResult<T>()
-                .setCode(responseStatusEnum.getCode())
-                .setMsg(responseStatusEnum.getMsg())
-                .setData(data);
+        ResponseResult<T> result = new ResponseResult<>();
+        result.setCode(responseStatusEnum.getCode());
+        result.setMsg(responseStatusEnum.getMsg());
+        result.setData(data);
+        result.setSuccess(false);
+        return result;
     }
 
     /**
@@ -78,9 +83,11 @@ public class ResponseResult<T> implements Serializable {
      * @date : 2021/10/4 2:11
      */
     public static <T> ResponseResult<T> fail(ResponseStatusEnum responseStatusEnum) {
-        return new ResponseResult<T>()
-                .setCode(responseStatusEnum.getCode())
-                .setMsg(responseStatusEnum.getMsg());
+        ResponseResult<T> result = new ResponseResult<>();
+        result.setCode(responseStatusEnum.getCode());
+        result.setSuccess(false);
+        result.setMsg(responseStatusEnum.getMsg());
+        return result;
     }
 
     /**
@@ -91,9 +98,11 @@ public class ResponseResult<T> implements Serializable {
      * @date : 2021/10/4 2:11
      */
     public static <T> ResponseResult<T> fail(int code, String msg) {
-        return new ResponseResult<T>()
-                .setCode(code)
-                .setMsg(msg);
+        ResponseResult<T> result = new ResponseResult<>();
+        result.setCode(code);
+        result.setSuccess(false);
+        result.setMsg(msg);
+        return result;
     }
 
     /**
@@ -105,10 +114,12 @@ public class ResponseResult<T> implements Serializable {
      * @date : 2021/10/4 2:11
      */
     public static <T> ResponseResult<T> fail(T data) {
-        return new ResponseResult<T>()
-                .setCode(ResponseStatusEnum.BAD_REQUEST.getCode())
-                .setMsg(ResponseStatusEnum.BAD_REQUEST.getMsg())
-                .setData(data);
+        ResponseResult<T> result = new ResponseResult<>();
+        result.setCode(ResponseStatusEnum.BAD_REQUEST.getCode());
+        result.setMsg(ResponseStatusEnum.BAD_REQUEST.getMsg());
+        result.setSuccess(false);
+        result.setData(data);
+        return result;
     }
 
     /**
@@ -126,10 +137,49 @@ public class ResponseResult<T> implements Serializable {
         return fail(result);
     }
 
-    public boolean isSuccess() {
-        this.success = this.code == 200;
-        return !success;
+
+    public int getCode() {
+        return code;
     }
 
+    public void setCode(int code) {
+        this.code = code;
+    }
 
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public Long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    @Override
+    public String toString() {
+        return "ResponseResult{" + "code=" + code + ", msg='" + msg + '\'' + ", data=" + data + ", timestamp=" + timestamp + ", success=" + success + '}';
+    }
 }

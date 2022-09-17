@@ -23,7 +23,9 @@ import com.fengzijk.response.properties.GlobalResponseProperties;
 import com.fengzijk.response.annotation.IgnoreGlobalResponse;
 import com.fengzijk.response.exception.BizException;
 
-import lombok.extern.slf4j.Slf4j;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
@@ -61,9 +63,8 @@ import java.util.stream.Collectors;
  */
 
 @RestControllerAdvice
-@Slf4j
 public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
-
+    private final static Logger log = LoggerFactory.getLogger(GlobalResponseHandler.class);
 
     @Autowired
     private GlobalResponseProperties globalResponseProperties;
@@ -132,8 +133,7 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Object notFountHandler(NoHandlerFoundException e) {
-        log.warn("NoHandlerFoundException,message={}", e.getMessage());
-        return ResponseResult.fail(e.getMessage(), ResponseStatusEnum.NO_HANDLER);
+        return  ResponseResult.fail(e.getMessage(), ResponseStatusEnum.NO_HANDLER);
     }
 
     /**
@@ -211,11 +211,15 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
             return obj;
         }
 
+        if (obj instanceof Boolean){
+            return ResponseResult.result(obj);
+        }
 
         //当 obj 返回类型为ResultMsg(统一封装返回对象),则直接返回
         if (obj instanceof ResponseResult) {
             return obj;
         }
+
 
         return ResponseResult.success(obj);
     }
