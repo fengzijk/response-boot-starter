@@ -223,7 +223,6 @@ public class SignatureUtils {
             type = SignType.MD5;
         }
         StringBuilder sb = getSignCheckContentV2(bean);
-        System.out.println("-=========" + sb);
         //暂时不需要个人认证
         sb.append(SignConstant.SIGN_SECRET_KEY + "=").append(clientSecret);
         String signStr = "";
@@ -288,7 +287,7 @@ public class SignatureUtils {
                 return true;
             }
         } catch (Exception e) {
-            System.err.printf("validateSign error:{%s}%n", e.getMessage());
+             e.printStackTrace();
             return false;
         }
         return false;
