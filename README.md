@@ -59,10 +59,13 @@ public class ResponseResultConfig extends DelegatingWebMvcConfiguration {
 ~~~json
 
 {
-  "code": 400,
-  "msg": "请求失败",
-  "data": "方法调用方式异常，Get、Post请求不匹配",
-  "timestamp": 1663400082513,
+  "code": 21000,
+  "msg": "参数错误",
+  "data": [
+    "ss不能为空",
+    "ss2不能为空"
+  ],
+  "timestamp": 1663430017151,
   "success": false
 }
 
