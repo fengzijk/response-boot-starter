@@ -18,7 +18,6 @@
 package com.fengzijk.response;
 
 
-
 import com.fengzijk.response.properties.GlobalResponseProperties;
 import com.fengzijk.response.annotation.IgnoreGlobalResponse;
 import com.fengzijk.response.exception.BizException;
@@ -104,21 +103,33 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
     public ResponseResult<?> bindExceptionHandler(BindException e) {
         log.warn("BindException,message={}", e.getMessage());
 
-        // 实体参数注解校验提示格式 只返回第一个提示
-        List<ObjectError> objectErrors = e.getBindingResult().getAllErrors();
-        if (!CollectionUtils.isEmpty(objectErrors) && objectErrors.size() > 0) {
-            ResponseResult.fail(objectErrors.get(0).getDefaultMessage());
-        }
 
-        return ResponseResult.fail(ResponseStatusEnum.BAD_REQUEST);
+        List<String> list = e.getBindingResult().getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList());
+       // 是否只返回第一个错误信息
+        if (globalResponseProperties.getOnlyParamFirstError()) {
+            return ResponseResult.fail(list.get(0), ResponseStatusEnum.PARAM_ERROR);
+        }
+        return ResponseResult.fail(list, ResponseStatusEnum.PARAM_ERROR);
     }
 
 
+    /**
+     * <pre>service层校验注解错误</pre>
+     *
+     * @param e 错误信息
+     * @return com.fengzijk.response.ResponseResult<?>
+     * @author : guozhifeng
+     * @date : 2022/9/17 22:50
+     */
     @ExceptionHandler(value = ConstraintViolationException.class)
     public ResponseResult<?> constraintViolationExceptionHandler(ConstraintViolationException e) {
         log.warn("ConstraintViolationException,message={}", e.getMessage());
-        Map<Path, String> map = e.getConstraintViolations().stream().collect(Collectors.toMap(ConstraintViolation::getPropertyPath, ConstraintViolation::getMessage));
-        return ResponseResult.fail(map);
+        List<String> list = e.getConstraintViolations().stream().map(ConstraintViolation::getMessage).collect(Collectors.toList());
+        // 是否只返回第一个错误信息
+        if (globalResponseProperties.getOnlyParamFirstError()) {
+            return ResponseResult.fail(list.get(0), ResponseStatusEnum.PARAM_ERROR);
+        }
+        return ResponseResult.fail(list, ResponseStatusEnum.PARAM_ERROR);
     }
 
 
@@ -133,7 +144,7 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Object notFountHandler(NoHandlerFoundException e) {
-        return  ResponseResult.fail(e.getMessage(), ResponseStatusEnum.NO_HANDLER);
+        return ResponseResult.fail(e.getMessage(), ResponseStatusEnum.NO_HANDLER);
     }
 
     /**
@@ -211,7 +222,7 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
             return obj;
         }
 
-        if (obj instanceof Boolean){
+        if (obj instanceof Boolean) {
             return ResponseResult.result(obj);
         }
 

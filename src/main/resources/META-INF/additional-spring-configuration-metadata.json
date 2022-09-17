@@ -5,7 +5,11 @@
       "type":"java.lang.Boolean",
       "description": "开关."
     },
-
+    {
+      "name":"global-response.onlyParamFirstError",
+      "type":"java.lang.Boolean",
+      "description": "参数校验 是否只返回第一个错误."
+    },
     {
       "name": "global-response.adviceFilterPackage",
       "type": "java.util.List<java.lang.String>",

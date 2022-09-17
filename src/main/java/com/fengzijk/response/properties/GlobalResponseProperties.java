@@ -37,6 +37,17 @@ public class GlobalResponseProperties {
      */
     public static final String PREFIX = "global-response";
     private final Boolean enabled = Boolean.TRUE;
+
+
+
+    /**
+     *  参数校验 是否只返回第一个错误
+     */
+    private   Boolean onlyParamFirstError=Boolean.TRUE;
+
+    /**
+     * feign 接口过滤
+     */
     private String feignHeader = "Feign-Client";
     /**
      * 统一返回过滤包
@@ -74,5 +85,15 @@ public class GlobalResponseProperties {
     public void setFeignHeader(String feignHeader) {
         this.feignHeader = feignHeader;
     }
+
+    public Boolean getOnlyParamFirstError() {
+        return onlyParamFirstError;
+    }
+
+    public void setOnlyParamFirstError(Boolean onlyParamFirstError) {
+        this.onlyParamFirstError = onlyParamFirstError;
+    }
+
+
 }
 

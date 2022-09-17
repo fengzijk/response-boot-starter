@@ -18,7 +18,6 @@
 package com.fengzijk.response;
 
 
-
 /**
  * <pre>返回值</pre>
  *
@@ -31,34 +30,28 @@ public enum ResponseStatusEnum {
     /**
      * 请求成功
      */
-    OK(200, "请求成功"),
+    OK(20000, "请求成功"),
 
     /**
      * 请求失败
      */
-    BAD_REQUEST(400, "请求失败"),
+    BAD_REQUEST(24000, "请求失败"),
 
     /**
      * 请求失败
      */
-    NO_HANDLER(404, "资源不存在");
+    NO_HANDLER(24040, "资源不存在"),
 
 
-    public Integer getCode() {
-        return code;
-    }
+    /**
+     * 服务器内部错误
+     */
+    INTERNAL_ERROR(25000, "服务器内部错误"),
 
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
+    /**
+     * 参数错误
+     */
+    PARAM_ERROR(21000, "参数错误");
 
     private Integer code;
     private String msg;
@@ -67,7 +60,6 @@ public enum ResponseStatusEnum {
         this.code = code;
         this.msg = name;
     }
-
 
     public static String getMsgByCode(Integer code) {
         if (code != null) {
@@ -89,5 +81,21 @@ public enum ResponseStatusEnum {
             }
         }
         return null;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }
