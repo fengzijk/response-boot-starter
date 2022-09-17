@@ -26,7 +26,7 @@ global-response:
     - com.fengzijk.springstudy.TestController
   ## 需要过滤的包
   advice-filter-package:
-    com.fengzijk.springstudy
+    - com.fengzijk.springstudy
 ~~~
 
 
