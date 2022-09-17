@@ -73,7 +73,7 @@ global-response:
 {
   "code": 400,
   "msg": "请求失败",
-  "data": "方法调用方式异常，Get、Post请求不匹配，或Form、Body参数不匹配",
+  "data": "方法调用方式异常，Get、Post请求不匹配",
   "timestamp": 1663400082513,
   "success": false
 }
