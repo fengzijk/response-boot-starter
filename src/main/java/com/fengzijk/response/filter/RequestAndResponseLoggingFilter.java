@@ -1,29 +1,26 @@
 package com.fengzijk.response.filter;
 
+import com.fengzijk.response.properties.GlobalResponseProperties;
 import com.fengzijk.response.util.StringUtilEx;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ReadListener;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletInputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Stream;
-import javax.servlet.FilterChain;
-import javax.servlet.ReadListener;
-import javax.servlet.ServletException;
-import javax.servlet.ServletInputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
@@ -35,30 +32,15 @@ public class RequestAndResponseLoggingFilter extends OncePerRequestFilter {
 
 
 
-    private static final Long MAX_BODY_SIZE = 4 * 1024L;
-
+    private final GlobalResponseProperties globalResponseProperties;
 
     Logger logger = LoggerFactory.getLogger(RequestAndResponseLoggingFilter.class);
 
-    // 可见的类型
-    private static final List<MediaType> VISIBLE_TYPES =
-            Arrays.asList(MediaType.valueOf("text/*"), MediaType.APPLICATION_FORM_URLENCODED, MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
-                    MediaType.valueOf("application/*+json"), MediaType.valueOf("application/*+xml"));
-
-    /**
-     * 不应记录其值的 HTTP 标头列表。
-     */
-    private static final List<String> SENSITIVE_HEADERS = Arrays.asList("authorization", "proxy-authorization");
 
 
-    private boolean enabled = true;
+    public RequestAndResponseLoggingFilter(GlobalResponseProperties globalResponseProperties) {this.globalResponseProperties = globalResponseProperties;}
 
-
-
-    //
-    private static final List<String> NOT_LOG_CONTENT_TYPE = Arrays.asList(MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.MULTIPART_MIXED_VALUE);
-
-    private static void logRequestHeader(ContentCachingRequestWrapper request, StringBuilder msg) {
+    private void logRequestHeader(ContentCachingRequestWrapper request, StringBuilder msg) {
 
         Collections.list(request.getHeaderNames()).forEach(headerName -> Collections.list(request.getHeaders(headerName)).forEach(headerValue -> {
             if (isSensitiveHeader(headerName)) {
@@ -69,7 +51,7 @@ public class RequestAndResponseLoggingFilter extends OncePerRequestFilter {
         }));
     }
 
-    private static void logRequestBody(ContentCachingRequestWrapper request, StringBuilder msg) {
+    private void logRequestBody(ContentCachingRequestWrapper request, StringBuilder msg) {
 
         String queryString = request.getQueryString();
 
@@ -82,7 +64,7 @@ public class RequestAndResponseLoggingFilter extends OncePerRequestFilter {
         }
     }
 
-    private static void logResponse(ContentCachingResponseWrapper response, StringBuilder msg) {
+    private void logResponse(ContentCachingResponseWrapper response, StringBuilder msg) {
         int status = response.getStatus();
         msg.append(String.format("%s %s %s", "响应状态 : ", status, HttpStatus.valueOf(status).getReasonPhrase())).append("\n");
 
@@ -107,11 +89,12 @@ public class RequestAndResponseLoggingFilter extends OncePerRequestFilter {
         }
     }
 
-    private static void logContent(byte[] content, String contentType, StringBuilder msg) {
-        MediaType mediaType = MediaType.valueOf(contentType);
+    private void logContent(byte[] content, String contentType, StringBuilder msg) {
 
-        boolean visible = VISIBLE_TYPES.stream().anyMatch(visibleType -> visibleType.includes(mediaType));
-        if (visible && content.length < MAX_BODY_SIZE) {
+        boolean visible =
+                globalResponseProperties.getRequestLog().getVisibleContentTypeList().isEmpty() || globalResponseProperties.getRequestLog().getVisibleContentTypeList().stream()
+                        .anyMatch(visibleType -> visibleType.toLowerCase().contains(contentType.toLowerCase()));
+        if (visible && content.length < globalResponseProperties.getRequestLog().getMaxBodySize()) {
             String contentString = new String(content, StandardCharsets.UTF_8);
             Stream.of(contentString.split("\r\n|\r|\n")).forEach(line -> msg.append(" ").append(line).append("\n"));
         } else {
@@ -119,12 +102,12 @@ public class RequestAndResponseLoggingFilter extends OncePerRequestFilter {
         }
     }
 
-    
-    private static boolean isSensitiveHeader(String headerName) {
-        return SENSITIVE_HEADERS.contains(headerName.toLowerCase());
+
+    private boolean isSensitiveHeader(String headerName) {
+        return globalResponseProperties.getRequestLog().getSensitiveHeadersList().stream().anyMatch(a -> a.equalsIgnoreCase(headerName.toLowerCase()));
     }
 
-    private static ContentCachingRequestWrapper wrapRequest(HttpServletRequest request) {
+    private ContentCachingRequestWrapper wrapRequest(HttpServletRequest request) {
         if (request instanceof ContentCachingRequestWrapper) {
             return (ContentCachingRequestWrapper) request;
         } else {
@@ -132,7 +115,7 @@ public class RequestAndResponseLoggingFilter extends OncePerRequestFilter {
         }
     }
 
-    private static ContentCachingResponseWrapper wrapResponse(HttpServletResponse response) {
+    private ContentCachingResponseWrapper wrapResponse(HttpServletResponse response) {
         if (response instanceof ContentCachingResponseWrapper) {
             return (ContentCachingResponseWrapper) response;
         } else {
@@ -140,24 +123,18 @@ public class RequestAndResponseLoggingFilter extends OncePerRequestFilter {
         }
     }
 
-    @ManagedOperation(description = "Enable logging of HTTP requests and responses")
-    public void enable() {
-        this.enabled = true;
-    }
 
-    @ManagedOperation(description = "Disable logging of HTTP requests and responses")
-    public void disable() {
-        this.enabled = false;
-    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String traceId = UUID.randomUUID().toString().replace("-", "").substring(0, 16);
         MDC.put("traceId", traceId);
         MDC.put("requestStartTime", String.valueOf(System.currentTimeMillis()));
-        boolean ignoreContentType = NOT_LOG_CONTENT_TYPE.stream().anyMatch(contentType -> contentType.equalsIgnoreCase(request.getContentType()));
 
-        if (isAsyncDispatch(request) || ignoreContentType) {
+
+        boolean ignoreUrl = globalResponseProperties.getRequestLog().getIgnoreUrlList().stream().anyMatch(url -> url.contains(request.getRequestURI()));
+
+        if (isAsyncDispatch(request) || ignoreUrl) {
             filterChain.doFilter(request, response);
         } else {
             doFilterWrapped(wrapRequest(request), wrapResponse(response), filterChain);
@@ -181,7 +158,7 @@ public class RequestAndResponseLoggingFilter extends OncePerRequestFilter {
     }
 
     protected void beforeRequest(ContentCachingRequestWrapper request, ContentCachingResponseWrapper response, StringBuilder msg) {
-        if (enabled && logger.isInfoEnabled()) {
+        if (logger.isInfoEnabled() && globalResponseProperties.getRequestLog().getEnabled()) {
             msg.append("\n------------------- REQUEST ------------------- \n");
             msg.append("请求URI : ").append(request.getRequestURI()).append("\n");
             msg.append("请求URL : ").append(request.getRequestURL()).append("\n");
@@ -197,7 +174,7 @@ public class RequestAndResponseLoggingFilter extends OncePerRequestFilter {
     protected void afterRequest(ContentCachingRequestWrapper request, ContentCachingResponseWrapper response, StringBuilder msg) {
 
 
-        if (enabled && logger.isInfoEnabled()) {
+        if (logger.isInfoEnabled()) {
             logRequestBody(request, msg);
             //  msg.append("\n------------------- RESPONSE ------------------- \n");
             logResponse(response, msg);
