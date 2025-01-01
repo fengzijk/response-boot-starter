@@ -26,10 +26,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * <pre>统一返回值以及异常处理</pre>
+ * 统一返回值以及异常处理
  *
  * @author : fengzijk
- * @date : 2021/10/4 0:38
+ * @since : 2021/10/4 0:38
  */
 
 @Configuration

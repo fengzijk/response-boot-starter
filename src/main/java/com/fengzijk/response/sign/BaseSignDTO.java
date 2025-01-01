@@ -21,7 +21,7 @@ import java.io.Serializable;
 
 
 /**
- * <pre>功能描述</pre>
+ * 功能描述
  *
  * @author guozhifeng
  * @since 2022/8/28

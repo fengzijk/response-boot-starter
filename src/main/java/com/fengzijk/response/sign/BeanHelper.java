@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * <pre>反射工具类</pre>
+ * 反射工具类
  *
  * @author guozhifeng
  * @since 2022/8/28
@@ -34,7 +34,7 @@ public class BeanHelper {
 
 
     /**
-     * <pre>过滤不需要属性</pre>
+     * 过滤不需要属性
      *
      * @param field 字段
      * @return java.lang.Boolean
@@ -51,7 +51,7 @@ public class BeanHelper {
 
 
     /**
-     * <pre>获取签名类型</pre>
+     * 获取签名类型
      *
      * @param bean 对象
      * @return java.lang.String
@@ -88,7 +88,7 @@ public class BeanHelper {
 
 
     /**
-     * <pre>获取值</pre>
+     * 获取值
      *
      * @param bean   对象
      * @param objKey 值
@@ -118,7 +118,7 @@ public class BeanHelper {
     }
 
     /**
-     * <pre>利用Java反射根据类的名称获取属性信息和父类的属性信息</pre>
+     * 利用Java反射根据类的名称获取属性信息和父类的属性信息
      *
      * @param obj 对象
      * @return List
@@ -142,7 +142,7 @@ public class BeanHelper {
 
 
     /**
-     * <pre>递归所有父类属性</pre>
+     * 递归所有父类属性
      *
      * @param clazz     类
      * @param fieldList 字段集合

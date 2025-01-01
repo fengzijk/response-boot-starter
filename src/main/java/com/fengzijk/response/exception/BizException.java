@@ -18,10 +18,10 @@
 package com.fengzijk.response.exception;
 
 /**
- * <pre>业务异常</pre>
+ * 业务异常
  *
  * @author : fengzijk
- * @date : 2021/10/3 19:17
+ * @since : 2021/10/3 19:17
  */
 
 public class BizException extends RuntimeException {

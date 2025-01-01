@@ -23,10 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <pre>全局返回值与异常处理</pre>
+ * 全局返回值与异常处理
  *
  * @author : fengzijk
- * @date : 2021/10/4 0:47
+ * @since : 2021/10/4 0:47
  */
 @ConfigurationProperties(GlobalResponseProperties.PREFIX)
 public class GlobalResponseProperties {
@@ -48,7 +48,7 @@ public class GlobalResponseProperties {
     /**
      * feign 接口过滤
      */
-    private String feignHeader = "Feign-Client";
+    private List<String> ignoreHeader;
     /**
      * 统一返回过滤包
      */
@@ -78,13 +78,7 @@ public class GlobalResponseProperties {
         this.adviceFilterClass = adviceFilterClass;
     }
 
-    public String getFeignHeader() {
-        return feignHeader;
-    }
 
-    public void setFeignHeader(String feignHeader) {
-        this.feignHeader = feignHeader;
-    }
 
     public Boolean getOnlyParamFirstError() {
         return onlyParamFirstError;
@@ -95,5 +89,12 @@ public class GlobalResponseProperties {
     }
 
 
+    public List<String> getIgnoreHeader() {
+        return ignoreHeader;
+    }
+
+    public void setIgnoreHeader(List<String> ignoreHeader) {
+        this.ignoreHeader = ignoreHeader;
+    }
 }
 

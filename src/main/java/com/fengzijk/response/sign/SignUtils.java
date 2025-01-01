@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * <pre>签名工具类</pre>
+ * 签名工具类
  *
  * @author guozhifeng
  * @since 2022/8/28
@@ -33,7 +33,7 @@ public class SignUtils {
 
 
     /**
-     * <pre>获取当前时间格式化字符串</pre>
+     * 获取当前时间格式化字符串
 
      * @return java.lang.String
     */
@@ -46,7 +46,7 @@ public class SignUtils {
 
 
     /**
-     * <pre>判断字符串是否为空</pre>
+     * 判断字符串是否为空
      *
      *
      * @param cs 字符串
@@ -67,7 +67,7 @@ public class SignUtils {
     }
 
     /**
-     * <pre>判断字符串是否不为空</pre>
+     * 判断字符串是否不为空
      *
      *
      * @param cs 字符串
@@ -80,7 +80,7 @@ public class SignUtils {
 
 
     /**
-     * <pre>MD5加密(32位大写)</pre>
+     * MD5加密(32位大写)
      *
      * @param src 字符串
      * @return java.lang.String
@@ -110,7 +110,7 @@ public class SignUtils {
 
 
     /**
-     * <pre>利用java原生的类实现SHA256加密</pre>
+     * 利用java原生的类实现SHA256加密
      * @author fengzijk
      * @param str 加密后的报文
      * @return java.lang.String
@@ -138,7 +138,7 @@ public class SignUtils {
 
 
     /**
-     * <pre>将byte转为16进制</pre>
+     * 将byte转为16进制
      *
      * @param bytes 数组
      * @return java.lang.String

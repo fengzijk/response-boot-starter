@@ -19,7 +19,7 @@ package com.fengzijk.response.sign;
 
 
 /**
- * <pre>签名常量</pre>
+ * 签名常量
  *
  * @author guozhifeng
  * @since 2022/8/28

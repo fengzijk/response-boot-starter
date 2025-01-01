@@ -30,7 +30,7 @@ import java.util.Set;
 
 
 /**
- * <pre>签名工具类</pre>
+ * 签名工具类
  *
  * @author guozhifeng
  * @since 2022/8/28
@@ -44,7 +44,7 @@ public class SignatureUtils {
 
 
     /**
-     * <pre>验证Map参数的签名</pre>
+     * 验证Map参数的签名
      *
      * @param paramsMap 参数Map
      */
@@ -78,7 +78,7 @@ public class SignatureUtils {
 
 
     /**
-     * <pre>验证Map类型参数的签名</pre>
+     * 验证Map类型参数的签名
      *
      * @param paramsMap    Map参数
      * @param clientSecret 秘钥
@@ -103,7 +103,7 @@ public class SignatureUtils {
 
 
     /**
-     * <pre>获取V1版本的签名</pre>
+     * 获取V1版本的签名
      *
      * @param paramMap     Map 参数
      * @param clientSecret 秘钥
@@ -159,7 +159,7 @@ public class SignatureUtils {
     }
 
     /**
-     * <pre>V2获取签名内容</pre>
+     * V2获取签名内容
      *
      * @param bean 对象
      * @return java.lang.StringBuilder
@@ -205,7 +205,7 @@ public class SignatureUtils {
 
 
     /**
-     * <pre>获取V2版本签名</pre>
+     * 获取V2版本签名
      *
      * @param bean         对象
      * @param clientSecret 验证接口的clientSecret
@@ -270,7 +270,7 @@ public class SignatureUtils {
     }
 
     /**
-     * <pre>校验V2版本的签名</pre>
+     * 校验V2版本的签名
      *
      * @param object       对象
      * @param clientSecret 秘钥
