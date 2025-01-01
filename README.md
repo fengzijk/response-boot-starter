@@ -1,4 +1,4 @@
-# springboot 统一返回结果 以及异常信息封装 
+e# springboot 统一返回结果 以及异常信息封装 
 
 ## 使用示例
 
@@ -19,14 +19,20 @@
 ### 2. config 配置文件
 ~~~yml
 global-response:
-  ## feign 接口暂时有问题也过滤 feign 根据Header过滤
-  feign-header: feign
-  ## 过滤的类
-  advice-filter-class: 
-    - com.fengzijk.springstudy.TestController
-  ## 需要过滤的包
-  advice-filter-package:
-    - com.fengzijk.springstudy
+  enabled: true
+  # 请求响应日志开关
+  request-log-url-pattern: /*
+  # 忽略的请求头
+  ignore-header-list:
+    - feign
+  # 需要过滤包装的类   
+  advice-filter-class-list:
+    - com.fengzijk.demo.common.advice.GlobalResponseAdvice
+    - com.fengzijk.demo.common.advice.GlobalRequestLogAdvice
+    # 需要过滤的包
+  advice-filter-package-list: 
+    - com.fengzijk.demo.common.advice
+
 ~~~
 
 
