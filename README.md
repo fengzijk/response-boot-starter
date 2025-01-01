@@ -30,20 +30,9 @@ global-response:
 ~~~
 
 
-### 3. 由于String的converters问题 需要加入以下配置
-
-~~~java
-@Configuration
-public class ResponseResultConfig extends DelegatingWebMvcConfiguration {
-    @Override
-    protected void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(0, new MappingJackson2HttpMessageConverter());
-        super.configureMessageConverters(converters);
-    }
-}
 ~~~
 
-### 4.返回结果包装示例
+### 3.返回结果包装示例
 
 ~~~json
 {
@@ -55,7 +44,7 @@ public class ResponseResultConfig extends DelegatingWebMvcConfiguration {
 }
 ~~~
 
-### 5. 异常信息处理
+### 4. 异常信息处理
 ~~~json
 
 {
