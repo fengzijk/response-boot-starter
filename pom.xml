@@ -9,7 +9,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.fengzijk</groupId>
-  <artifactId>response-boot-starter</artifactId>
+  <artifactId>response-spring-boot-starter</artifactId>
   <version>2.0.0</version>
   <name>response-boot-starter</name>
   <properties>
