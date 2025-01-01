@@ -1,19 +1,4 @@
-/*
- *   All rights Reserved, Designed By ZTE-ITS
- *   Copyright:    Copyright(C) 2019-2025
- *   Company       FENGZIJK LTD.
- *   @Author:    fengzijk
- *   @Email: guozhifengvip@gmail.com
- *   @Version    V1.0
- *   @Date:   2022年06月19日 13时33分
- *   Modification       History:
- *   ------------------------------------------------------------------------------------
- *   Date                  Author        Version        Description
- *   -----------------------------------------------------------------------------------
- *  2022-06-19 13:33:40    fengzijk         1.0         Why & What is modified: <修改原因描述>
- *
- *
- */
+
 
 package com.fengzijk.response;
 
@@ -23,13 +8,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fengzijk.response.annotation.IgnoreGlobalResponse;
 import com.fengzijk.response.exception.BizException;
 import com.fengzijk.response.properties.GlobalResponseProperties;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import javax.validation.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,12 +37,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-/**
- * 全局异常处理
- *
- * @author : fengzijk
- * @since : 2021/10/3 19:15
- */
+
 
 @RestControllerAdvice
 public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
@@ -70,14 +50,7 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
     @Autowired
     private ObjectMapper objectMapper;
 
-    /**
-     * 拦截MethodArgumentNotValidException异常，针对body参数的表单注解（如：@NotEmpty）校验拦截
-     *
-     * @param e 错误信息
-     * @return com.calf.cloud.starter.response.ApiResponse<?>
-     * @author : fengzijk
-     * @since : 2021/10/4 2:21
-     */
+    
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ApiResponse<?> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
         log.warn("MethodArgumentNotValidException,message={}", e.getMessage());
@@ -92,14 +65,7 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
     }
 
 
-    /**
-     * 拦截BindException异常，针对form参数的表单注解（如：@NotEmpty）校验拦截
-     *
-     * @param e 错误信息
-     * @return com.calf.cloud.starter.response.ApiResponse<?>
-     * @author : fengzijk
-     * @since : 2021/10/4 2:22
-     */
+    
     @ExceptionHandler(value = BindException.class)
     public ApiResponse<?> bindExceptionHandler(BindException e) {
         log.warn("BindException,message={}", e.getMessage());
@@ -114,14 +80,7 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
     }
 
 
-    /**
-     * service层校验注解错误
-     *
-     * @param e 错误信息
-     * @return com.fengzijk.response.ApiResponse<?>
-     * @author : guozhifeng
-     * @since : 2022/9/17 22:50
-     */
+    
     @ExceptionHandler(value = ConstraintViolationException.class)
     public ApiResponse<?> constraintViolationExceptionHandler(ConstraintViolationException e) {
         log.warn("ConstraintViolationException,message={}", e.getMessage());
@@ -134,28 +93,14 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
     }
 
 
-    /**
-     * 404异常处理 拦截NoHandlerFoundException异常，针对form参数的表单注解（如：@NotEmpty）校验拦截
-     *
-     * @param e 错误信息
-     * @return java.lang.Object
-     * @author : fengzijk
-     * @since : 2021/10/4 4:04
-     */
+    
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Object notFountHandler(NoHandlerFoundException e) {
         return ApiResponse.fail(e.getMessage(), ApiResponse.ResponseStatusEnum.NO_HANDLER.getStatusMessage());
     }
 
-    /**
-     * 拦截ValidationException异常
-     *
-     * @param e 错误信息
-     * @return com.calf.cloud.starter.response.ApiResponse<?>
-     * @author : fengzijk
-     * @since : 2021/10/4 2:22
-     */
+    
     @ExceptionHandler(value = ValidationException.class)
     public ApiResponse<?> validationExceptionHandler(ValidationException e) {
         log.warn("ValidationException,message={}", e.getMessage());
@@ -163,14 +108,7 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
     }
 
 
-    /**
-     * HTTP方法异常调用
-     *
-     * @param e 错误信息
-     * @return com.calf.cloud.starter.response.ApiResponse<?>
-     * @author : fengzijk
-     * @since : 2021/10/4 2:20
-     */
+    
     @ExceptionHandler(value = {HttpRequestMethodNotSupportedException.class, HttpMediaTypeNotSupportedException.class})
     public ApiResponse<?> httpRequestMethodNotSupportedExceptionHandler(HttpRequestMethodNotSupportedException e) {
         log.warn("方法调用方式异常,message={}", e.getMessage());
@@ -178,14 +116,7 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
     }
 
 
-    /**
-     * 拦截MissingServletRequestParameterException异常
-     *
-     * @param e 错误信息
-     * @return com.calf.cloud.starter.response.ApiResponse<?>
-     * @author : fengzijk
-     * @since : 2021/10/4 2:23
-     */
+    
     @ExceptionHandler(value = MissingServletRequestParameterException.class)
     public ApiResponse<?> missingServletRequestParameterExceptionHandler(MissingServletRequestParameterException e) {
         log.warn("MissingServletRequestParameterException,message={}", e.getMessage());
@@ -194,14 +125,7 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
     }
 
 
-    /**
-     * 拦截自定义的BusinessException异常
-     *
-     * @param e 错误信息
-     * @return com.calf.cloud.starter.response.ApiResponse<?>
-     * @author : fengzijk
-     * @since : 2021/10/4 2:20
-     */
+    
     @ExceptionHandler(value = BizException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiResponse<?> daoExceptionHandler(BizException e) {
@@ -252,18 +176,7 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
     }
 
 
-    /**
-     * 自定义规则拦截器
-     * 过滤: 1.检查过滤包路径
-     * 2.检查类过滤列表
-     * 3.检查忽略注解是否存在于类上
-     * 4.检查注解是否存在于方法上
-     *
-     * @param methodParameter 方法参数
-     * @return java.lang.Boolean
-     * @author : fengzijk
-     * @since : 2021/10/4 0:30
-     */
+    
     private Boolean filter(MethodParameter methodParameter) {
         Class<?> declaringClass = methodParameter.getDeclaringClass();
         //检查过滤包路径
