@@ -36,32 +36,23 @@ global-response:
 ~~~
 
 
-~~~
-
 ### 3.返回结果包装示例
 
 ~~~json
-{
-  "code": 200,
-  "msg": "请求成功",
-  "data": "1111",
-  "timestamp": 1663399471767,
-  "success": true
-}
+{"statusCode":"20000","statusMessage":"请求成功","data":"aaaaa","timestamp":"1735724275333"}
 ~~~
 
 ### 4. 异常信息处理
 ~~~json
 
 {
-  "code": 21000,
+  "code": "21000",
   "msg": "参数错误",
   "data": [
     "ss不能为空",
     "ss2不能为空"
   ],
-  "timestamp": 1663430017151,
-  "success": false
+  "timestamp": "1663430017151",
 }
 
 
