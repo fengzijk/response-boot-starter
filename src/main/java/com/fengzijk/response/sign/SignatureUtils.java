@@ -1,19 +1,4 @@
-/*
- *   All rights Reserved, Designed By ZTE-ITS
- *   Copyright:    Copyright(C) 2019-2025
- *   Company       FENGZIJK LTD.
- *   @Author:    fengzijk
- *   @Email: guozhifengvip@gmail.com
- *   @Version    V1.0
- *   date:   2022年08月28日 03时33分
- *   Modification       History:
- *   ------------------------------------------------------------------------------------
- *   Date                  Author        Version        Description
- *   -----------------------------------------------------------------------------------
- *  2022-08-28 03:33:35    fengzijk         1.0         Why & What is modified: <修改原因描述>
- *
- *
- */
+
 
 package com.fengzijk.response.sign;
 
@@ -29,25 +14,14 @@ import java.util.Map;
 import java.util.Set;
 
 
-/**
- * <pre>签名工具类</pre>
- *
- * @author guozhifeng
- * @since 2022/8/28
- */
+
 public class SignatureUtils {
 
-    /**
-     * 5分钟有效期
-     */
+    
     private final static long MAX_EXPIRE = 5 * 60;
 
 
-    /**
-     * <pre>验证Map参数的签名</pre>
-     *
-     * @param paramsMap 参数Map
-     */
+    
     public static void validateByMap(Map<String, String> paramsMap) {
         if (SignUtils.isBlank(paramsMap.get(SignConstant.SIGN_APP_ID_KEY))) {
             throw new RuntimeException("签名验证失败:platformInfoNo不能为空");
@@ -77,13 +51,7 @@ public class SignatureUtils {
     }
 
 
-    /**
-     * <pre>验证Map类型参数的签名</pre>
-     *
-     * @param paramsMap    Map参数
-     * @param clientSecret 秘钥
-     * @return boolean
-     */
+    
     public static boolean validateSignByMap(Map<String, String> paramsMap, String clientSecret) {
         try {
             validateByMap(paramsMap);
@@ -102,13 +70,7 @@ public class SignatureUtils {
     }
 
 
-    /**
-     * <pre>获取V1版本的签名</pre>
-     *
-     * @param paramMap     Map 参数
-     * @param clientSecret 秘钥
-     * @return java.lang.String
-     */
+    
     public static String getSignV1(Map<String, String> paramMap, String clientSecret) {
         //加密
         String signType = paramMap.get(SignConstant.SIGN_SIGN_TYPE_KEY);
@@ -158,12 +120,7 @@ public class SignatureUtils {
         return sb;
     }
 
-    /**
-     * <pre>V2获取签名内容</pre>
-     *
-     * @param bean 对象
-     * @return java.lang.StringBuilder
-     */
+    
     public static StringBuilder getSignCheckContentV2(Object bean) {
         if (bean == null) {
             return new StringBuilder();
@@ -204,13 +161,7 @@ public class SignatureUtils {
     }
 
 
-    /**
-     * <pre>获取V2版本签名</pre>
-     *
-     * @param bean         对象
-     * @param clientSecret 验证接口的clientSecret
-     * @return java.lang.String
-     */
+    
     public static String getSignV2(Object bean, String clientSecret) {
 
         //加密
@@ -269,13 +220,7 @@ public class SignatureUtils {
         }
     }
 
-    /**
-     * <pre>校验V2版本的签名</pre>
-     *
-     * @param object       对象
-     * @param clientSecret 秘钥
-     * @return boolean
-     */
+    
     public static boolean validateSignV2(Object object, String clientSecret) {
         try {
             validateParamsV2(object);
@@ -295,9 +240,7 @@ public class SignatureUtils {
 
 
     public enum SignType {
-        /**
-         * md5
-         */
+        
         MD5, SHA256;
 
         public static boolean contains(String type) {
