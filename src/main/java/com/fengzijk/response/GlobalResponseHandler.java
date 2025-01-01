@@ -18,6 +18,8 @@
 package com.fengzijk.response;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fengzijk.response.annotation.IgnoreGlobalResponse;
 import com.fengzijk.response.exception.BizException;
 import com.fengzijk.response.properties.GlobalResponseProperties;
@@ -64,6 +66,9 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
     @Autowired
     private GlobalResponseProperties globalResponseProperties;
 
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     /**
      * 拦截MethodArgumentNotValidException异常，针对body参数的表单注解（如：@NotEmpty）校验拦截
@@ -217,8 +222,8 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
 
 
         AtomicBoolean ignoreHeaders = new AtomicBoolean(false);
-        if (globalResponseProperties.getIgnoreHeader() != null && !globalResponseProperties.getIgnoreHeader().isEmpty()) {
-            globalResponseProperties.getIgnoreHeader().forEach(header -> {
+        if (globalResponseProperties.getIgnoreHeaderList() != null && !globalResponseProperties.getIgnoreHeaderList().isEmpty()) {
+            globalResponseProperties.getIgnoreHeaderList().forEach(header -> {
                 serverHttpRequest.getHeaders().forEach((key, value) -> {
                     if (key.equalsIgnoreCase(header)) {
                         ignoreHeaders.set(true);
@@ -236,9 +241,11 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
         } else if (Objects.isNull(obj)) {
             return ApiResponse.success(null);
         } else if (obj instanceof String) {
-            // 设置响应头
-            serverHttpResponse.getHeaders().add("Content-Type", "application/json");
-            return ApiResponse.success(obj);
+            try {
+                return objectMapper.writeValueAsString((ApiResponse.success(obj)));
+            } catch (JsonProcessingException e) {
+                return null;
+            }
         }
 
         return ApiResponse.success(obj);
@@ -260,12 +267,12 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
     private Boolean filter(MethodParameter methodParameter) {
         Class<?> declaringClass = methodParameter.getDeclaringClass();
         //检查过滤包路径
-        long count = globalResponseProperties.getAdviceFilterPackage().stream().filter(a -> declaringClass.getName().contains(a)).count();
+        long count = globalResponseProperties.getAdviceFilterPackageList().stream().filter(a -> declaringClass.getName().contains(a)).count();
         if (count > 0) {
             return false;
         }
         //检查<类>过滤列表
-        if (globalResponseProperties.getAdviceFilterClass().contains(declaringClass.getName())) {
+        if (globalResponseProperties.getAdviceFilterClassList().contains(declaringClass.getName())) {
             return false;
         }
         //检查忽略注解是否存在于类上

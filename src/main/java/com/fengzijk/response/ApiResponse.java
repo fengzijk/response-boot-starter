@@ -9,10 +9,9 @@ import java.io.Serializable;
  * 统一返回结果
  *
  * @author : guozhifeng
- *@since : 2024/10/30 17:57
+ * @since : 2024/10/30 17:57
  */
-
-
+@SuppressWarnings("All")
 public class ApiResponse<T> implements Serializable {
 
     private String statusCode;
@@ -33,7 +32,7 @@ public class ApiResponse<T> implements Serializable {
      * @param data 数据
      * @return com.calf.cloud.starter.response.ApiResponse<T>
      * @author : fengzijk
-     *@since : 2021/10/4 2:08
+     * @since : 2021/10/4 2:08
      */
     public static <T> ApiResponse<T> success(T data) {
         return success(ResponseStatusEnum.OK.getStatusCode(), ResponseStatusEnum.OK.getStatusMessage(), data);
@@ -55,7 +54,7 @@ public class ApiResponse<T> implements Serializable {
      * @param data 数据
      * @return com.calf.cloud.starter.response.ApiResponse<T>
      * @author : fengzijk
-     *@since : 2021/10/4 2:11
+     * @since : 2021/10/4 2:11
      */
     public static <T> ApiResponse<T> fail(T data) {
         return fail(ResponseStatusEnum.BAD_REQUEST.getStatusCode(), ResponseStatusEnum.BAD_REQUEST.getStatusMessage(), data);
@@ -67,40 +66,39 @@ public class ApiResponse<T> implements Serializable {
      * @param responseStatusEnum 数据
      * @return com.calf.cloud.starter.response.ApiResponse<T>
      * @author : fengzijk
-     *@since : 2021/10/4 2:11
+     * @since : 2021/10/4 2:11
      */
     public static <T> ApiResponse<T> fail(ResponseStatusEnum responseStatusEnum, T data) {
-        return fail(responseStatusEnum.getStatusCode(),responseStatusEnum.getStatusMessage(), data);
+        return fail(responseStatusEnum.getStatusCode(), responseStatusEnum.getStatusMessage(), data);
     }
 
 
     /**
      * 返回失败数据
      *
-     * @param statusCode        状态码
-     * @param statusMessage     状态提示
+     * @param statusCode 状态码
+     * @param statusMessage 状态提示
      * @return com.calf.cloud.starter.response.ApiResponse<T>
      * @author : fengzijk
-     *@since : 2021/10/4 2:11
+     * @since : 2021/10/4 2:11
      */
     public static <T> ApiResponse<T> fail(String statusCode, String statusMessage) {
-        return fail(statusCode,statusMessage, null);
+        return fail(statusCode, statusMessage, null);
     }
-
-
 
 
 
     /**
      * 返回失败数据
-     *状态码
-     * @param statusMessage     状态提示
+     * 状态码
+     *
+     * @param statusMessage 状态提示
      * @return com.calf.cloud.starter.response.ApiResponse<T>
      * @author : fengzijk
-     *@since : 2021/10/4 2:11
+     * @since : 2021/10/4 2:11
      */
-    public static <T> ApiResponse<T> fail( T data, String statusMessage) {
-        return fail(ResponseStatusEnum.BAD_REQUEST.statusCode,statusMessage, data);
+    public static <T> ApiResponse<T> fail(T data, String statusMessage) {
+        return fail(ResponseStatusEnum.BAD_REQUEST.statusCode, statusMessage, data);
     }
 
 
@@ -110,13 +108,11 @@ public class ApiResponse<T> implements Serializable {
      *
      * @return com.calf.cloud.starter.response.ApiResponse<T>
      * @author : fengzijk
-     *@since : 2021/10/4 2:11
+     * @since : 2021/10/4 2:11
      */
     public static <T> ApiResponse<T> fail(String statusCode, String statusMessage, T data) {
         return new ApiResponse<>(statusCode, statusMessage, data, System.currentTimeMillis());
     }
-
-
 
 
 
@@ -143,8 +139,7 @@ public class ApiResponse<T> implements Serializable {
         /**
          * 参数错误
          */
-        PARAM_ERROR("21000", "参数错误");
-        ;
+        PARAM_ERROR("21000", "参数错误");;
 
 
         public String getStatusCode() {

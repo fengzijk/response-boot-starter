@@ -46,36 +46,51 @@ public class GlobalResponseProperties {
     private   Boolean onlyParamFirstError=Boolean.TRUE;
 
     /**
-     * feign 接口过滤
+     * 忽略请求头
      */
-    private List<String> ignoreHeader;
+    private List<String> ignoreHeaderList;
     /**
      * 统一返回过滤包
      */
-    private List<String> adviceFilterPackage = new ArrayList<>();
+    private List<String> adviceFilterPackageList = new ArrayList<>();
     /**
      * 统一返回过滤类
      */
-    private List<String> adviceFilterClass = new ArrayList<>();
+    private List<String> adviceFilterClassList = new ArrayList<>();
+
+
+
+    public String getRequestLogUrlPattern() {
+        return requestLogUrlPattern;
+    }
+
+    public void setRequestLogUrlPattern(String requestLogUrlPattern) {
+        this.requestLogUrlPattern = requestLogUrlPattern;
+    }
+
+    /**
+     * 请求日志过滤url
+     */
+    private String  requestLogUrlPattern;
 
     public Boolean getEnabled() {
         return enabled;
     }
 
-    public List<String> getAdviceFilterPackage() {
-        return adviceFilterPackage;
+    public List<String> getAdviceFilterPackageList() {
+        return adviceFilterPackageList;
     }
 
-    public void setAdviceFilterPackage(List<String> adviceFilterPackage) {
-        this.adviceFilterPackage = adviceFilterPackage;
+    public void setAdviceFilterPackageList(List<String> adviceFilterPackageList) {
+        this.adviceFilterPackageList = adviceFilterPackageList;
     }
 
-    public List<String> getAdviceFilterClass() {
-        return adviceFilterClass;
+    public List<String> getAdviceFilterClassList() {
+        return adviceFilterClassList;
     }
 
-    public void setAdviceFilterClass(List<String> adviceFilterClass) {
-        this.adviceFilterClass = adviceFilterClass;
+    public void setAdviceFilterClassList(List<String> adviceFilterClassList) {
+        this.adviceFilterClassList = adviceFilterClassList;
     }
 
 
@@ -89,12 +104,12 @@ public class GlobalResponseProperties {
     }
 
 
-    public List<String> getIgnoreHeader() {
-        return ignoreHeader;
+    public List<String> getIgnoreHeaderList() {
+        return ignoreHeaderList;
     }
 
-    public void setIgnoreHeader(List<String> ignoreHeader) {
-        this.ignoreHeader = ignoreHeader;
+    public void setIgnoreHeaderList(List<String> ignoreHeaderList) {
+        this.ignoreHeaderList = ignoreHeaderList;
     }
 }
 

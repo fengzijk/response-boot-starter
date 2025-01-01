@@ -16,17 +16,14 @@ import javax.servlet.FilterChain;
 import javax.servlet.ReadListener;
 import javax.servlet.ServletException;
 import javax.servlet.ServletInputStream;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.jmx.export.annotation.ManagedOperation;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
@@ -38,17 +35,16 @@ import org.springframework.web.util.ContentCachingResponseWrapper;
  * @author : guozhifeng
  * @since : 2024/12/3 18:23
  */
-@Component
-@WebFilter(urlPatterns = {"/**"})
+
 public class RequestAndResponseLoggingFilter extends OncePerRequestFilter {
 
 
 
-     private static final Long MAX_BODY_SIZE = 4 * 1024L;
+    private static final Long MAX_BODY_SIZE = 4 * 1024L;
 
 
-     Logger logger = LoggerFactory.getLogger(RequestAndResponseLoggingFilter.class);
-     
+    Logger logger = LoggerFactory.getLogger(RequestAndResponseLoggingFilter.class);
+
     // 可见的类型
     private static final List<MediaType> VISIBLE_TYPES =
             Arrays.asList(MediaType.valueOf("text/*"), MediaType.APPLICATION_FORM_URLENCODED, MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML,
@@ -199,7 +195,7 @@ public class RequestAndResponseLoggingFilter extends OncePerRequestFilter {
             msg.append("\n------------------- REQUEST ------------------- \n");
             msg.append("请求URI : ").append(request.getRequestURI()).append("\n");
             msg.append("请求URL : ").append(request.getRequestURL()).append("\n");
-            msg.append("请求时间 : ").append(LocalDateTime.now().format( DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).append("\n");
+            msg.append("请求时间 : ").append(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).append("\n");
             msg.append("请求方式 : ").append(request.getMethod()).append("\n");
             msg.append("traceId : ").append(MDC.get("traceId")).append("\n");
             msg.append("请求IP  : ").append(getIpAddress(request)).append("\n");

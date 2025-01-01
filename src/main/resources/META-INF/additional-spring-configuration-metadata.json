@@ -11,14 +11,19 @@
       "description": "参数校验 是否只返回第一个错误."
     },
     {
-      "name": "global-response.adviceFilterPackage",
+      "name": "global-response.adviceFilterPackageList",
       "type": "java.util.List<java.lang.String>",
       "description": "统一返回过滤包集合."
     },
     {
-      "name": "global-response.adviceFilterClass",
+      "name": "global-response.adviceFilterClassList",
       "type": "java.util.List<java.lang.String>",
       "description": "统一返回过滤包类名称."
+    },
+    {
+      "name": "global-response.ignoreHeaderList",
+      "type": "java.util.List<java.lang.String>",
+      "description": "忽略处理的请求头headers."
     }
   ]
 }
