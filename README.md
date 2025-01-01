@@ -47,7 +47,7 @@ global-response:
 
 {
   "code": "21000",
-  "msg": "参数错误",
+  "statusMessage": "参数错误",
   "data": [
     "ss不能为空",
     "ss2不能为空"
