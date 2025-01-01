@@ -4,13 +4,13 @@
 
 
 ### 1. 依赖
-### Latest Version: [![Maven Central](https://img.shields.io/maven-central/v/com.fengzijk/response-boot-starter.svg)](https://search.maven.org/search?q=g:com.fengzijka:response-boot-starter*)
+### Latest Version: [![Maven Central](https://img.shields.io/maven-central/v/com.fengzijk/response-spring-boot-starter.svg)](https://search.maven.org/search?q=g:com.fengzijka:response-boot-starter*)
 
 
 ``` xml
         <dependency>
             <groupId>com.fengzijk</groupId>
-            <artifactId>response-boot-starter</artifactId>
+            <artifactId>response-spring-boot-starter</artifactId>
             <version>Latest Version</version>
         </dependency>
 ```
