@@ -29,12 +29,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
-/**
- * 请求响应日志过滤器
- *
- * @author : guozhifeng
- * @since : 2024/12/3 18:23
- */
+
 
 public class RequestAndResponseLoggingFilter extends OncePerRequestFilter {
 
@@ -124,12 +119,7 @@ public class RequestAndResponseLoggingFilter extends OncePerRequestFilter {
         }
     }
 
-    /**
-     * Determine if a given header name should have its value logged.
-     *
-     * @param headerName HTTP header name.
-     * @return True if the header is sensitive (i.e. its value should <b>not</b> be logged).
-     */
+    
     private static boolean isSensitiveHeader(String headerName) {
         return SENSITIVE_HEADERS.contains(headerName.toLowerCase());
     }

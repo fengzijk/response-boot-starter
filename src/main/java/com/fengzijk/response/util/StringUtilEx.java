@@ -1,11 +1,6 @@
 package com.fengzijk.response.util;
 
-/**
- * 功能描述
- *
- * @author guozhifeng
- * @since 2025/01/01 14:52
- */
+
 public class StringUtilEx {
     public static boolean isNumeric(final CharSequence cs) {
         if (isBlank(cs)) {

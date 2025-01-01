@@ -1,52 +1,22 @@
-/*
- *   All rights Reserved, Designed By ZTE-ITS
- *   Copyright:    Copyright(C) 2019-2025
- *   Company       FENGZIJK LTD.
- *   @Author:    fengzijk
- *   @Email: guozhifengvip@gmail.com
- *   @Version    V1.0
- *   date:   2022年08月28日 03时33分
- *   Modification       History:
- *   ------------------------------------------------------------------------------------
- *   Date                  Author        Version        Description
- *   -----------------------------------------------------------------------------------
- *  2022-08-28 03:33:35    fengzijk         1.0         Why & What is modified: <修改原因描述>
- *
- *
- */
+
 
 package com.fengzijk.response.sign;
 
 import java.io.Serializable;
 
 
-/**
- * 功能描述
- *
- * @author guozhifeng
- * @since 2022/8/28
- */
+
 public class BaseSignDTO implements Serializable {
 
-    /**
-     * 随机字符串
-     */
+    
     public String nonce;
-    /**
-     * 客户端ID
-     */
+    
     private String appId;
-    /**
-     * 签名方式  signType = SHA256|MD5
-     */
+    
     private String signType;
-    /**
-     * 时间戳
-     */
+    
     private String timestamp;
-    /**
-     * 签名
-     */
+    
     private String sign;
 
     public String getAppId() {

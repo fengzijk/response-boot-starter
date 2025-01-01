@@ -10,12 +10,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * 日志过滤器
- *
- * @author : guozhifeng
- * @since : 2025/1/1 15:48
- */
+
 @Configuration
 @ConditionalOnProperty(value = GlobalResponseProperties.PREFIX + ".enabled", havingValue = "true")
 @EnableConfigurationProperties({GlobalResponseProperties.class})
