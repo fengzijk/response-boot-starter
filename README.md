@@ -62,7 +62,7 @@ api-response:
 ~~~json
 
 {
-  "code": "21000",
+  "statusCode": "21000",
   "statusMessage": "参数错误",
   "data": [
     "ss不能为空",
