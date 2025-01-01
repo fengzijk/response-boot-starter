@@ -18,20 +18,36 @@
 
 ### 2. config 配置文件
 ~~~yml
-global-response:
+api-response:
   enabled: true
-  # 请求响应日志开关
-  request-log-url-pattern: /*
-  # 忽略的请求头
+  # 有些请求不需要封装  可以根据header不增强
   ignore-header-list:
     - feign
-  # 需要过滤包装的类   
+  # 响应增强过滤类列表   比如有些接口不要 输出image等
   advice-filter-class-list:
-    - com.fengzijk.demo.common.advice.GlobalResponseAdvice
-    - com.fengzijk.demo.common.advice.GlobalRequestLogAdvice
-    # 需要过滤的包
-  advice-filter-package-list: 
-    - com.fengzijk.demo.common.advice
+    - com.fengzijk.common.advice.ApiResponseAdvice
+  # 响应增强过滤包列表
+  adviceFilterPackageList:
+    - com.fengzijk.common.advice
+      
+  # 请求响应日志配置
+  request-log:
+    # 是否开启请求响应日志
+    enabled: true
+    # 响应内容可见类型列表
+    visible-content-type-list: application/json
+    # 忽略的url列表
+    ignore-url-list:
+      - /open/dict/all
+     # 敏感header列表  
+    sensitive-headers-list:
+      - authorization
+    # 最大响应体大小  
+    max-body-size: 2048
+    # 响应日志url匹配模式列表
+    request-log-url-pattern-list:
+      - ^/open/dict/all
+
 
 ~~~
 
