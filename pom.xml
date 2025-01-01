@@ -9,8 +9,8 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.fengzijk</groupId>
-  <artifactId>response-boot-starter</artifactId>
-  <version>1.1.2</version>
+  <artifactId>response-spring-boot-starter</artifactId>
+  <version>2.0.1</version>
   <name>response-boot-starter</name>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

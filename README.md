@@ -10,7 +10,7 @@
 ``` xml
         <dependency>
             <groupId>com.fengzijk</groupId>
-            <artifactId>response-boot-starter</artifactId>
+            <artifactId>response-spring-boot-starter</artifactId>
             <version>Latest Version</version>
         </dependency>
 ```

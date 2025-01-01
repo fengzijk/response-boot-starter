@@ -1,29 +1,59 @@
 {
   "properties": [
     {
-      "name":"global-response.enabled",
-      "type":"java.lang.Boolean",
+      "name": "api-response.enabled",
+      "type": "java.lang.Boolean",
       "description": "开关."
     },
     {
-      "name":"global-response.onlyParamFirstError",
-      "type":"java.lang.Boolean",
+      "name": "api-response.onlyParamFirstError",
+      "type": "java.lang.Boolean",
       "description": "参数校验 是否只返回第一个错误."
     },
     {
-      "name": "global-response.adviceFilterPackageList",
+      "name": "api-response.adviceFilterPackageList",
       "type": "java.util.List<java.lang.String>",
       "description": "统一返回过滤包集合."
     },
     {
-      "name": "global-response.adviceFilterClassList",
+      "name": "api-response.adviceFilterClassList",
       "type": "java.util.List<java.lang.String>",
       "description": "统一返回过滤包类名称."
     },
     {
-      "name": "global-response.ignoreHeaderList",
+      "name": "api-response.ignoreHeaderList",
       "type": "java.util.List<java.lang.String>",
       "description": "忽略处理的请求头headers."
+    },
+    {
+      "name": "api-response.requestLog.enable",
+      "type": "java.lang.Boolean",
+      "description": "日志打印开关."
+    },
+    {
+      "name": "api-response.requestLog.requestLogUrlPatternList",
+      "type": "java.util.List<java.lang.String>",
+      "description": "日志打印开关."
+    },
+    {
+      "name": "api-response.requestLog.ignoreUrlList",
+      "type": "java.util.List<java.lang.String>",
+      "description": "忽略Url列表."
+    },
+    {
+      "name": "api-response.requestLog.sensitiveHeadersList",
+      "type": "java.util.List<java.lang.String>",
+      "description": "敏感header列表."
+    },
+    {
+      "name": "api-response.requestLog.visibleContentTypeList",
+      "type": "java.util.List<java.lang.String>",
+      "description": "答应日志的请求ContentType类型."
+    },
+    {
+      "name": "api-response.requestLog.maxBodySize",
+      "type": "java.lang.Integer",
+      "description": "日志打印最大的body长度."
     }
   ]
 }
