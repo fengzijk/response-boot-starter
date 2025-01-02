@@ -4,7 +4,7 @@
 
 
 ### 1. 依赖
-### Latest Version: [![Maven Central](https://img.shields.io/maven-central/v/com.fengzijk/response-spring-boot-starter.svg)](https://search.maven.org/search?q=g:com.fengzijka:response-spring-boot-starter*)
+### Latest Version: [![Maven Central](https://img.shields.io/maven-central/v/com.fengzijk/response-spring-boot-starter.svg)](https://central.sonatype.com/search?q=&namespace=com.fengzijk&name=response-spring-boot-starter)
 
 
 ``` xml
